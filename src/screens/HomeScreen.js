@@ -6,6 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import axios from 'axios';
@@ -13,12 +15,16 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 
 import MapView, {Marker} from 'react-native-maps';
 import {SearchIcon} from '../assets/svg';
+ 
 
 import Header from '../component/Header';
 
 const HomeScreen = ({navigation, route}) => {
   const GOOGLE_MAP_KEY = '';
-  const [marker, setMarker] = useState();
+  const [marker, setMarker] = useState({
+    latitude: 37.78825,
+    longitude: -122.4324,
+  });
   const [country, setCountry] = useState('');
   const [province, setProvince] = useState('');
   const [district, setDistrict] = useState('');
@@ -106,9 +112,8 @@ const HomeScreen = ({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={{flex: 1}}>
       <Header title={'Cities'} />
-
       <View style={[styles.mainContainer]}>
         <View style={[styles.formContainer]}>
           <View style={[styles.formRow, styles.zIndex]}>
@@ -240,7 +245,7 @@ const HomeScreen = ({navigation, route}) => {
             <Marker coordinate={marker} title={'Title'} />
           </MapView>
         </View>
-      </View>
+      </View> 
     </SafeAreaView>
   );
 };
@@ -263,13 +268,13 @@ const styles = StyleSheet.create({
   },
 
   formContainer: {
-    flex: 1,
+    flex: 1.3,
     justifyContent: 'flex-start',
     marginBottom: 30,
   },
 
   mapContainer: {
-    flex: 1.25,
+    flex: 1,
   },
 
   formRow: {
